@@ -506,7 +506,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
                     .setContentTitle("Burnout Resistance: " + counts);
         } else {
             b.setLargeIcon(Icon.createWithResource(this, R.drawable.app_icon))
-                    .setContentTitle("Ingress Hack Overlay is running");
+                    .setContentTitle("Hack Timer Overlay for Ingress is running");
         }
         return b.setContentText(hidden ? "Buttons hidden – tap \"Show buttons\" to bring them back" : "Tap for settings")
                 .setContentIntent(open)

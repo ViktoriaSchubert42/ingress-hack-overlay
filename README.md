@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="symbols/appicon2.png" alt="Ingress Hack Overlay icon" width="160">
+  <img src="symbols/appicon2.png" alt="Hack Timer Overlay for Ingress icon" width="160">
 </p>
 
-<h1 align="center">Ingress Hack Overlay</h1>
+<h1 align="center">Hack Timer Overlay for Ingress</h1>
 
 <p align="center">
   Floating timer and counter buttons that sit on top of Ingress Prime while you play.<br>
@@ -11,7 +11,7 @@
 
 ---
 
-Ingress Hack Overlay is a small Android app that draws hexagonal buttons over the game. Each button tracks one of the waits an agent has to keep in mind while farming: portal burnout, hacking cooldown, how many hacks a portal has left, and the drone cooldown. The buttons only show while Ingress is on screen. When a timer runs out, the phone vibrates and shows a notification.
+Hack Timer Overlay for Ingress is a small Android app that draws hexagonal buttons over the game. Each button tracks one of the waits an agent has to keep in mind while farming: portal burnout, hacking cooldown, how many hacks a portal has left, and the drone cooldown. The buttons only show while Ingress is on screen. When a timer runs out, the phone vibrates and shows a notification.
 
 ## Contents
 
@@ -134,7 +134,7 @@ The app has no internet permission. All data stays on the phone.
 
 If you install the APK file directly (from a browser, messenger or file manager), Android blocks **Display over other apps** and **Usage access** at first. The app explains the steps when you tap **Start overlay**. In short:
 
-1. Open **App info** for Ingress Hack Overlay.
+1. Open **App info** for Hack Timer Overlay for Ingress.
 2. Tap the **⋮** menu at the top right and choose **Allow restricted settings**, then confirm with your PIN or fingerprint.
 3. Go back and tap **Start overlay** again.
 
