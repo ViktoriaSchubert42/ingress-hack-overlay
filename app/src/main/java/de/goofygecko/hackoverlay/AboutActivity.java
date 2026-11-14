@@ -3,6 +3,7 @@ package de.goofygecko.hackoverlay;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -36,6 +37,10 @@ public class AboutActivity extends Activity {
         col.addView(title);
         col.addView(centered("Version " + versionName(), 16));
         col.addView(centered("by GoofyGecko, Enlightened Germany", 16));
+        TextView source = centered("Source: https://github.com/ViktoriaSchubert42/ingress-hack-overlay", 14);
+        source.setPadding(0, dp(12), 0, 0);
+        Linkify.addLinks(source, Linkify.WEB_URLS);
+        col.addView(source);
 
         // Empty space that pushes the notice to the bottom of the screen.
         col.addView(new View(this), new LinearLayout.LayoutParams(0, 0, 1));
