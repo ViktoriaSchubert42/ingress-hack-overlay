@@ -1,0 +1,19 @@
+# Signing keys and secrets
+keystore/
+*.jks
+*.keystore
+keystore.properties
+
+# Local machine config
+local.properties
+
+# Build output
+.gradle/
+build/
+app/build/
+*.apk
+*.aab
+
+# IDE
+.idea/
+*.iml
