@@ -223,6 +223,6 @@ symbols/                       Source artwork (PNG and GIMP .xcf)
 
 ## Legal
 
-Copyright Viktoria Schubert. All rights reserved.
+Copyright Viktoria Schubert. All rights reserved. See also the [privacy policy](PRIVACY.md).
 
 "Ingress" and the Enlightened and the Resistance logos are the property of Google Inc. This application and GoofyGecko are NOT affiliated in any way with Google Inc, Niantic Labs or Ingress Project.
