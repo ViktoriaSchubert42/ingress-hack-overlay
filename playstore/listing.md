@@ -124,7 +124,7 @@ Open Source: https://github.com/ViktoriaSchubert42/ingress-hack-overlay
 | App or game | App |
 | Category | Tools |
 | Free or paid | Free |
-| Privacy policy URL | https://github.com/ViktoriaSchubert42/ingress-hack-overlay/blob/main/PRIVACY.md |
+| Privacy policy URL | https://viktoriaschubert42.github.io/ingress-hack-overlay/privacy.html |
 | App access | All functionality is available without special access |
 | Ads | No, the app does not contain ads |
 | Content rating | Questionnaire: utility app, answer "No" to every content question |

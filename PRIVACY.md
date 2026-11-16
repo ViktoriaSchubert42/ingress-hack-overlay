@@ -3,7 +3,7 @@
 **Hack Timer Overlay for Ingress**
 by GoofyGecko (Viktoria Schubert)
 
-Last updated: November 14, 2026
+Last updated: November 16, 2026
 
 ## Summary
 
@@ -49,4 +49,4 @@ https://github.com/ViktoriaSchubert42/ingress-hack-overlay/issues
 
 ---
 
-"Ingress" is the property of Google Inc. This application and GoofyGecko are NOT affiliated in any way with Google Inc, Niantic Labs or Ingress Project.
+"Ingress" is a trademark of Niantic. This application and GoofyGecko are NOT affiliated in any way with Niantic, Google or the Ingress project.

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy – Hack Timer Overlay for Ingress</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1d1f21;
+    --muted: #5f6368;
+    --border: #dadce0;
+    --accent: #1b8a3a;
+    --row: #f6f8f7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121413;
+      --fg: #e6e8e7;
+      --muted: #9aa09d;
+      --border: #333836;
+      --accent: #4cc26e;
+      --row: #1b1e1d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.9rem; line-height: 1.25; margin: 0 0 4px; }
+  h2 { font-size: 1.2rem; margin: 2em 0 0.5em; color: var(--accent); }
+  .meta { color: var(--muted); margin: 0 0 1.5em; }
+  a { color: var(--accent); }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th { white-space: nowrap; }
+  tr:nth-child(even) td { background: var(--row); }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  footer { margin-top: 3em; padding-top: 1em; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="meta"><strong>Hack Timer Overlay for Ingress</strong><br>
+  by GoofyGecko (Viktoria Schubert)<br>
+  Last updated: November 16, 2026</p>
+
+  <h2>Summary</h2>
+  <p>Hack Timer Overlay for Ingress does not collect, store on any server, share or sell any personal data. The app has no internet access.</p>
+
+  <h2>What the app stores</h2>
+  <p>The app saves your settings only on your own phone:</p>
+  <ul>
+    <li>your chosen faction, button color, size and arrangement</li>
+    <li>your list of timers and counters, their portal mod setup, and when each running timer ends</li>
+  </ul>
+  <p>This data never leaves your device. It is deleted when you uninstall the app or clear its data in Android's settings.</p>
+
+  <h2>Permissions and why they are used</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Permission</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td>Display over other apps</td><td>Shows the timer buttons on top of Ingress.</td></tr>
+      <tr><td>Usage access</td><td>Checks which app is currently in front, so the buttons only show while Ingress is open. The app only checks whether that app is Ingress. It does not record or keep this information.</td></tr>
+      <tr><td>Notifications</td><td>Shows timer countdowns and "timer ended" alerts.</td></tr>
+      <tr><td>Alarms &amp; reminders</td><td>Sends alerts at the right time while the phone sleeps.</td></tr>
+      <tr><td>Foreground service</td><td>Keeps the overlay running while you play.</td></tr>
+      <tr><td>Vibration</td><td>Vibrates when a timer ends.</td></tr>
+      <tr><td>Run at startup</td><td>Sets your running timers again after the phone restarts.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Internet, analytics and ads</h2>
+  <p>The app does not request internet access. It contains no analytics, crash reporting, advertising or third-party tracking code.</p>
+
+  <h2>Children</h2>
+  <p>The app is not directed at children under 13.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version will be published at this address with a new date.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy: open an issue at
+  <a href="https://github.com/ViktoriaSchubert42/ingress-hack-overlay/issues">github.com/ViktoriaSchubert42/ingress-hack-overlay/issues</a></p>
+
+  <footer>
+    "Ingress" is a trademark of Niantic. This application and GoofyGecko are NOT affiliated in any way with Niantic, Google or the Ingress project.
+  </footer>
+</main>
+</body>
+</html>
