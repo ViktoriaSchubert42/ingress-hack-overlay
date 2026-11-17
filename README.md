@@ -11,7 +11,7 @@
 
 ---
 
-Hack Timer Overlay for Ingress is a small Android app that draws hexagonal buttons over the game. Each button tracks one of the waits an agent has to keep in mind while farming: portal burnout, hacking cooldown, how many hacks a portal has left, and the drone cooldown. The buttons only show while Ingress is on screen. When a timer runs out, the phone vibrates and shows a notification.
+Hack Timer Overlay for Ingress is a small Android app that draws hexagonal buttons over the game. Each button tracks one of the waits an agent has to keep in mind while farming: portal burnout, hacking speed, how many hacks a portal has left, and the drone cooldown. The buttons only show while Ingress is on screen. When a timer runs out, the phone vibrates and shows a notification.
 
 ## Contents
 
@@ -42,9 +42,9 @@ Hack Timer Overlay for Ingress is a small Android app that draws hexagonal butto
 
 | | Timer / counter | What it tracks | Default |
 |---|---|---|---|
-| <img src="symbols/burnout.png" width="40"> | **Portal Burnout** | A portal burns out after too many hacks and has to rest for 4 hours. | 4:00 h |
-| <img src="symbols/heatsink.png" width="40"> | **Hacking Cooldown (CHS, RHS, VRHS)** | The wait before you can hack the same portal again. Heat sinks make it shorter. | 5:00 min |
-| <img src="symbols/multihack.png" width="40"> | **Burnout Resistance (CMH, RMH, VRMH)** | How many hacks a portal has left before it burns out. Multi-hacks raise the number. | 4 hacks |
+| <img src="symbols/burnout.png" width="40"> | **Portal Burnout Refresh** | A portal burns out after too many hacks and has to rest for 4 hours. | 4:00 h |
+| <img src="symbols/heatsink.png" width="40"> | **Hacking Speed Timer** | The wait before you can hack the same portal again. Heat sinks make it shorter. | 5:00 min |
+| <img src="symbols/multihack.png" width="40"> | **Remaining Hacks Countdown** | How many hacks a portal has left before it burns out. Multi-hacks raise the number. | 4 hacks |
 | <img src="symbols/drone.png" width="40"> | **Drone Timer Cooldown** | The wait before your drone can make a long jump again. | 60 min |
 
 A new installation starts with one of each. Add or remove timers in the timer list on the settings page. Timers are numbered from 1, and when you have more than one of the same kind, the button label includes its number.
@@ -57,19 +57,19 @@ A new installation starts with one of each. Add or remove timers in the timer li
 | White text, white border | Running. A timer is counting down, or the hack counter is below its starting number. |
 | Yellow **READY** | The timer has run out. |
 
-**Timers** (burnout, hacking cooldown, drone):
+**Timers** (Portal Burnout Refresh, Hacking Speed Timer, Drone Timer Cooldown):
 - **Tap** starts the timer.
 - **Long-press** resets it to the full time without starting it. Tap again to start.
 
-**Burnout Resistance counter:**
+**Remaining Hacks Countdown:**
 - **Tap** counts one hack down.
 - **Long-press** resets it to the full number of hacks.
 
 ## Portal mod calculations
 
-Tap **Setup** next to a hacking cooldown or burnout resistance timer to open the mod page. It shows the portal's four mod slots in a 2×2 grid. Tap a slot to pick a mod, and the result updates as you go. You can also type a value by hand.
+Tap **Setup** next to a Hacking Speed Timer or Remaining Hacks Countdown to open the mod page. It shows the portal's four mod slots in a 2×2 grid. Tap a slot to pick a mod, and the result updates as you go. You can also type a value by hand.
 
-### Burnout Resistance (multi-hacks)
+### Remaining Hacks Countdown (multi-hacks)
 
 | Mod | Bonus hacks |
 |---|---|
@@ -81,7 +81,7 @@ A portal starts with **4 hacks**. The rarest multi-hack adds its full bonus, and
 
 > Example: VRMH + RMH + CMH = 4 + 12 + 8/2 + 4/2 = **22 hacks**
 
-### Hacking Cooldown (heat sinks)
+### Hacking Speed Timer (heat sinks)
 
 First choose the portal type:
 

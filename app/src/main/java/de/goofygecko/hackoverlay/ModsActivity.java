@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 /**
- * Settings page of a Burnout Resistance (multihack) or a Hacking Cooldown (heat sink) timer: the portal's mods, and the number
+ * Settings page of a Remaining Hacks Countdown (multihack) or a Hacking Speed Timer (heat sink): the portal's mods, and the number
  * of hacks or the cooldown they result in.
  */
 public class ModsActivity extends Activity {

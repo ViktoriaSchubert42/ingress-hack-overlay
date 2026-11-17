@@ -89,9 +89,9 @@ final class Timers {
 
     static String name(String type) {
         switch (type) {
-            case BURNOUT: return "Portal Burnout";
-            case HEATSINK: return "Hacking Cooldown (CHS, RHS, VRHS)";
-            case MULTIHACK: return "Burnout Resistance (CMH, RMH, VRMH)";
+            case BURNOUT: return "Portal Burnout Refresh";
+            case HEATSINK: return "Hacking Speed Timer";
+            case MULTIHACK: return "Remaining Hacks Countdown";
             default: return "Drone Timer Cooldown";
         }
     }
@@ -121,7 +121,7 @@ final class Timers {
 
     /**
      * The kind's name, with its number in the timer list when there is more than one of that kind,
-     * e.g. "3 · Hacking Cooldown (CHS, RHS, VRHS)".
+     * e.g. "3 · Hacking Speed Timer".
      */
     static String label(List<Timer> list, Timer timer) {
         int count = 0, number = 0;

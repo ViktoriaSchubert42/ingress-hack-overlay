@@ -493,7 +493,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
         }
         if (counts.length() > 0) {
             b.setLargeIcon(Icon.createWithResource(this, R.drawable.sym_multihack))
-                    .setContentTitle("Burnout Resistance: " + counts);
+                    .setContentTitle("Remaining Hacks: " + counts);
         } else {
             b.setLargeIcon(Icon.createWithResource(this, R.drawable.app_icon))
                     .setContentTitle("Hack Timer Overlay for Ingress is running");

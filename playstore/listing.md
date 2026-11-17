@@ -16,7 +16,7 @@ Hack Timer Overlay for Ingress
 ### Short description
 
 ```
-Burnout, hack cooldown, hacks left and drone timers floating over Ingress.
+Burnout, hacking speed, hacks left and drone timers floating over Ingress.
 ```
 
 ### Full description
@@ -27,9 +27,9 @@ Keep track of every wait while you play Ingress Prime, without leaving the game.
 Hack Timer Overlay for Ingress puts small hexagon buttons on top of the game. Each button is a timer or counter for one thing agents usually have to remember. The buttons only appear while Ingress is open and hide everywhere else.
 
 THE TIMERS
-• Portal Burnout: 4-hour timer for a burned-out portal.
-• Hacking Cooldown: the wait until you can hack the same portal again. Set the portal type and its heat sinks, and the app works out the cooldown.
-• Burnout Resistance: counts how many hacks a portal has left. Set its multi-hacks, and the app works out the number of hacks.
+• Portal Burnout Refresh: 4-hour timer for a burned-out portal.
+• Hacking Speed Timer: the wait until you can hack the same portal again. Set the portal type and its heat sinks, and the app works out the cooldown.
+• Remaining Hacks Countdown: counts how many hacks a portal has left. Set its multi-hacks, and the app works out the number of hacks.
 • Drone Timer Cooldown: the wait until your drone can make a long jump again.
 
 Add as many timers and counters as you need, for example one cooldown per portal you are farming. Only the drone timer is limited to one.
@@ -83,9 +83,9 @@ Behalte beim Spielen von Ingress Prime jede Wartezeit im Blick, ohne das Spiel z
 Hack Timer Overlay for Ingress legt kleine Sechseck-Buttons über das Spiel. Jeder Button ist ein Timer oder Zähler für etwas, das sich Agents sonst merken müssen. Die Buttons erscheinen nur, während Ingress geöffnet ist, und sind sonst ausgeblendet.
 
 DIE TIMER
-• Portal Burnout: 4-Stunden-Timer für ein ausgebranntes Portal.
-• Hacking Cooldown: die Wartezeit, bis du dasselbe Portal wieder hacken kannst. Wähle Portaltyp und Heat Sinks, und die App berechnet den Cooldown.
-• Burnout Resistance: zählt, wie viele Hacks ein Portal noch hat. Wähle die Multi-Hacks, und die App berechnet die Anzahl der Hacks.
+• Portal Burnout Refresh: 4-Stunden-Timer für ein ausgebranntes Portal.
+• Hacking Speed Timer: die Wartezeit, bis du dasselbe Portal wieder hacken kannst. Wähle Portaltyp und Heat Sinks, und die App berechnet den Cooldown.
+• Remaining Hacks Countdown: zählt, wie viele Hacks ein Portal noch hat. Wähle die Multi-Hacks, und die App berechnet die Anzahl der Hacks.
 • Drone Timer Cooldown: die Wartezeit, bis deine Drohne wieder weit springen kann.
 
 Füge so viele Timer und Zähler hinzu, wie du brauchst, zum Beispiel einen Cooldown pro Portal, das du farmst. Nur den Drohnen-Timer gibt es einmal.
