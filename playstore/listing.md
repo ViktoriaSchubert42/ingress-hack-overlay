@@ -46,7 +46,7 @@ PORTAL MOD CALCULATOR
 Pick the multi-hacks (common, rare, very rare) or heat sinks in the four mod slots. The app applies the game's rules: the strongest mod counts fully and every other one counts half.
 
 MAKE IT YOURS
-• Choose Enlightened or Resistance, and the buttons take on your faction's color.
+• Choose Enlightened or Resistance, and the heat sink and multi-hack buttons show in your faction's color.
 • Change button size, color, and a horizontal or vertical row.
 
 PRIVACY
@@ -102,7 +102,7 @@ PORTAL-MOD-RECHNER
 Wähle die Multi-Hacks (common, rare, very rare) oder Heat Sinks in den vier Mod-Slots. Die App wendet die Spielregeln an: Der stärkste Mod zählt voll, jeder weitere zur Hälfte.
 
 NACH DEINEM GESCHMACK
-• Wähle Enlightened oder Resistance, und die Buttons bekommen die Farbe deiner Fraktion.
+• Wähle Enlightened oder Resistance, und die Heat-Sink- und Multi-Hack-Buttons erscheinen in der Farbe deiner Fraktion.
 • Ändere Größe, Farbe und ob die Buttons waagrecht oder senkrecht angeordnet sind.
 
 DATENSCHUTZ

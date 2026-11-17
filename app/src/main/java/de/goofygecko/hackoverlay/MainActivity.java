@@ -85,10 +85,7 @@ public class MainActivity extends Activity {
         if (Prefs.faction(prefs) >= 0) factions.check(Prefs.faction(prefs) + 1);
         factions.setOnCheckedChangeListener((g, id) -> {
             int faction = id - 1;
-            // Picking a faction switches the buttons to its color; the user can still pick another below.
-            prefs.edit().putInt(Prefs.FACTION, faction)
-                    .putInt(Prefs.BUTTON_COLOR, Prefs.FACTION_BUTTON_COLORS[faction]).apply();
-            colors.check(Prefs.FACTION_BUTTON_COLORS[faction] + 1);
+            prefs.edit().putInt(Prefs.FACTION, faction).apply();
             showFaction(faction);
         });
         col.addView(factions);

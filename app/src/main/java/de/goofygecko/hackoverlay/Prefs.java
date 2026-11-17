@@ -54,8 +54,6 @@ final class Prefs {
     static final String[] FACTION_NAMES = {"Enlightenment", "Resistance"};
     static final int[] FACTION_COLORS = {Color.rgb(0x00, 0xD0, 0x00), Color.rgb(0x1E, 0x90, 0xFF)};
     static final int[] FACTION_LOGOS = {R.drawable.logo_enl, R.drawable.logo_res};
-    /** Button color each faction starts with: green for Enlightenment, blue for Resistance. */
-    static final int[] FACTION_BUTTON_COLORS = {1, 3};
 
     private Prefs() {}
 
@@ -118,9 +116,7 @@ final class Prefs {
     }
 
     static int buttonColorIndex(SharedPreferences p) {
-        int faction = faction(p);
-        int fallback = faction < 0 ? 0 : FACTION_BUTTON_COLORS[faction];
-        return clamp(p.getInt(BUTTON_COLOR, fallback), 0, COLOR_VALUES.length - 1);
+        return clamp(p.getInt(BUTTON_COLOR, 0), 0, COLOR_VALUES.length - 1);  // black by default
     }
 
     static int buttonColor(SharedPreferences p) {

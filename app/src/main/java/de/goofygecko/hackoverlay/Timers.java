@@ -106,14 +106,15 @@ final class Timers {
     }
 
     /**
-     * Symbol for an overlay button: the heat sink and multihack get a green or blue version for
-     * the player's faction (Prefs.faction index), the others always look the same.
+     * Symbol for an overlay button: the heat sink and multihack get a blue version for the
+     * Resistance and a green one otherwise (Enlightened or no faction picked yet), the others
+     * always look the same.
      */
     static int icon(String type, int faction) {
-        if (faction < 0) return icon(type);
+        boolean res = faction == 1;
         switch (type) {
-            case HEATSINK: return faction == 0 ? R.drawable.sym_heatsink_enl : R.drawable.sym_heatsink_res;
-            case MULTIHACK: return faction == 0 ? R.drawable.sym_multihack_enl : R.drawable.sym_multihack_res;
+            case HEATSINK: return res ? R.drawable.sym_heatsink_res : R.drawable.sym_heatsink_enl;
+            case MULTIHACK: return res ? R.drawable.sym_multihack_res : R.drawable.sym_multihack_enl;
             default: return icon(type);
         }
     }

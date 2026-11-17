@@ -277,6 +277,8 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
                 if (!prefs.contains(endKey + ALERTED) && end != 0 && end <= now) e.putLong(endKey + ALERTED, end);
             }
             b.label = Timers.label(list, t);
+            // Kept buttons too: the symbol follows the faction.
+            b.icon.setImageResource(Timers.icon(t.type, Prefs.faction(prefs)));
             bubbles.add(b);
         }
         e.apply();
@@ -568,7 +570,6 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
             root.setBackground(bg);
 
             icon = new ImageView(OverlayService.this);
-            icon.setImageResource(Timers.icon(timer.type, Prefs.faction(prefs)));
             icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
             root.addView(icon);
 
