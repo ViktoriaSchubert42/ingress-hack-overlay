@@ -39,13 +39,16 @@ final class Prefs {
     static final int MIN_BUTTON_SIZE = 33;
     static final int MAX_BUTTON_SIZE = 100;
 
-    /** Button background choices, in the order shown on the settings screen. */
+    /**
+     * Button background choices, in the order shown on the settings screen. The colors are deep,
+     * dark shades so the buttons stand apart from the game's bright links and fields.
+     */
     static final String[] COLOR_NAMES = {"Black", "Green", "Red", "Blue"};
     static final int[] COLOR_VALUES = {
             Color.argb(200, 0, 0, 0),
-            Color.argb(220, 9, 237, 70),
-            Color.argb(220, 0xC6, 0x28, 0x28),
-            Color.argb(220, 0x15, 0x65, 0xC0),
+            Color.argb(225, 0x14, 0x3D, 0x24),
+            Color.argb(225, 0x4A, 0x16, 0x16),
+            Color.argb(225, 0x14, 0x26, 0x4A),
     };
 
     static final String[] FACTION_NAMES = {"Enlightenment", "Resistance"};
@@ -118,11 +121,6 @@ final class Prefs {
         int faction = faction(p);
         int fallback = faction < 0 ? 0 : FACTION_BUTTON_COLORS[faction];
         return clamp(p.getInt(BUTTON_COLOR, fallback), 0, COLOR_VALUES.length - 1);
-    }
-
-    /** True for backgrounds bright enough to need dark text (the green one). */
-    static boolean lightButtonColor(SharedPreferences p) {
-        return buttonColorIndex(p) == 1;
     }
 
     static int buttonColor(SharedPreferences p) {

@@ -63,22 +63,12 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
     private static final long TICK_MS = 250;
     private static final long FOREGROUND_POLL_MS = 1000;
 
-    // Text/border colors chosen to stay readable on every button background.
-    // Light text for the dark backgrounds (black, red, blue)...
-    private static final int[] LIGHT_TEXT = {
-            Color.WHITE,                    // running / counting down
-            Color.parseColor("#FFEB3B"),    // not started / READY / zero
-    };
-    // ...and dark text for the bright green background.
-    private static final int[] DARK_TEXT = {
-            Color.parseColor("#FF111111"),
-            Color.parseColor("#FF0D2A8C"),
-    };
+    // Text colors, readable on every (dark) button background.
+    private static final int TEXT_RUNNING = Color.WHITE;                  // running / counting down
+    private static final int TEXT_READY = Color.parseColor("#FFEB3B");    // not started / READY / zero
     // Timer borders, the same on every background: white while running, yellow otherwise.
     private static final int BORDER_RUNNING = Color.WHITE;
     private static final int BORDER_STOPPED = Color.parseColor("#FFEB3B");
-    private int colorRunning;
-    private int colorReady;
 
     /** The running service, if any, so alarms can reach it directly. */
     static OverlayService instance;
@@ -347,9 +337,6 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
         pollForeground(now);
 
         int bgColor = Prefs.buttonColor(prefs);
-        int[] text = Prefs.lightButtonColor(prefs) ? DARK_TEXT : LIGHT_TEXT;
-        colorRunning = text[0];
-        colorReady = text[1];
         float scale = Prefs.buttonSize(prefs) / 100f;
         for (Bubble b : bubbles) {
             b.setBackground(bgColor);
@@ -368,11 +355,11 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
                 // Like a timer: the full count in yellow until the first hack, then white while counting down.
                 int start = Timers.countdownStart(prefs, t.id);
                 if (left >= start) {
-                    b.show(String.valueOf(left), colorReady, BORDER_STOPPED);
+                    b.show(String.valueOf(left), TEXT_READY, BORDER_STOPPED);
                 } else if (left > 0) {
-                    b.show(String.valueOf(left), colorRunning, BORDER_RUNNING);
+                    b.show(String.valueOf(left), TEXT_RUNNING, BORDER_RUNNING);
                 } else {
-                    b.show("0", colorReady, BORDER_STOPPED);
+                    b.show("0", TEXT_READY, BORDER_STOPPED);
                 }
                 counts.append(counts.length() > 0 ? " · " : "").append(left);
                 continue;
@@ -383,11 +370,11 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
             if (end == 0) {
                 // Not started yet: the full time.
                 long full = duration(t);
-                b.show(burnout ? hm(full) : ms(full), colorReady, BORDER_STOPPED);
+                b.show(burnout ? hm(full) : ms(full), TEXT_READY, BORDER_STOPPED);
             } else if (end > now) {
-                b.show(burnout ? hm(end - now) : ms(end - now), colorRunning, BORDER_RUNNING);
+                b.show(burnout ? hm(end - now) : ms(end - now), TEXT_RUNNING, BORDER_RUNNING);
             } else {
-                b.show("READY", colorReady, BORDER_STOPPED);
+                b.show("READY", TEXT_READY, BORDER_STOPPED);
             }
             boolean finished = justFinished(endKey, end, now);
             if (finished) {
