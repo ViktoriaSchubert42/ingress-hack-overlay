@@ -188,7 +188,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
     @Override
     public void onSharedPreferenceChanged(SharedPreferences p, String key) {
         if (key == null || key.endsWith(ALERTED)) return;
-        if (Timers.LIST.equals(key)) buildBubbles();
+        if (Timers.LIST.equals(key) || Prefs.FACTION.equals(key)) buildBubbles();
         if (Timers.isEndKey(key)) scheduleAlarms();
         refresh();
     }
@@ -381,7 +381,8 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
                 if (burnout) burnoutDone = true; else otherDone = true;
             }
             b.posted = syncTimerNotification(ID_TIMER_BASE + t.id, b.posted, b.label,
-                    b.label + (burnout ? " is over" : " is ready"), Timers.icon(t.type), end, now, finished);
+                    b.label + (burnout ? " is over" : " is ready"), Timers.icon(t.type, Prefs.faction(prefs)),
+                    end, now, finished);
         }
 
         if (inIngress) {
@@ -567,7 +568,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
             root.setBackground(bg);
 
             icon = new ImageView(OverlayService.this);
-            icon.setImageResource(Timers.icon(timer.type));
+            icon.setImageResource(Timers.icon(timer.type, Prefs.faction(prefs)));
             icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
             root.addView(icon);
 

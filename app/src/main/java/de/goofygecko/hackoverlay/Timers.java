@@ -106,6 +106,19 @@ final class Timers {
     }
 
     /**
+     * Symbol for an overlay button: the heat sink and multihack get a green or blue version for
+     * the player's faction (Prefs.faction index), the others always look the same.
+     */
+    static int icon(String type, int faction) {
+        if (faction < 0) return icon(type);
+        switch (type) {
+            case HEATSINK: return faction == 0 ? R.drawable.sym_heatsink_enl : R.drawable.sym_heatsink_res;
+            case MULTIHACK: return faction == 0 ? R.drawable.sym_multihack_enl : R.drawable.sym_multihack_res;
+            default: return icon(type);
+        }
+    }
+
+    /**
      * The kind's name, with its number in the timer list when there is more than one of that kind,
      * e.g. "3 · Hacking Cooldown (CHS, RHS, VRHS)".
      */
