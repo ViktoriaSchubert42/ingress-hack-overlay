@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -111,6 +113,8 @@ public class ModsActivity extends Activity {
             col.addView(owner);
         }
 
+        addLinkChoice(col);
+
         col.addView(label("Portal mods"));
         for (int row = 0; row < 2; row++) {
             LinearLayout line = new LinearLayout(this);
@@ -167,6 +171,72 @@ public class ModsActivity extends Activity {
     protected void onPause() {
         super.onPause();
         if (valueInput != null) saveValue();
+    }
+
+    /**
+     * "Linked with": pairs a Hacking Speed Timer with a Remaining Hacks Countdown for the same
+     * portal, so one tap on either button counts a hack on both.
+     */
+    private void addLinkChoice(LinearLayout col) {
+        List<Timers.Timer> list = Timers.load(prefs);
+        Timers.Timer self = Timers.find(list, id);
+        if (self == null) return;
+        String otherType = heatsink ? Timers.MULTIHACK : Timers.HEATSINK;
+
+        col.addView(label("Linked with"));
+        TextView help = new TextView(this);
+        help.setText("Link it with a " + Timers.name(otherType) + " when both are about hacks on the same "
+                + "portal. Then one tap on either button counts a hack: it starts the timer and counts "
+                + "one hack down. Long-press still resets only the button you press.");
+        help.setPadding(0, dp(4), 0, dp(4));
+        col.addView(help);
+
+        RadioGroup choice = new RadioGroup(this);
+        RadioButton none = new RadioButton(this);
+        none.setId(View.generateViewId());
+        none.setText("Not linked");
+        choice.addView(none);
+        int checked = none.getId();
+        Timers.Timer current = Timers.linked(prefs, list, self);
+        boolean any = false;
+        for (int i = 0; i < list.size(); i++) {
+            Timers.Timer t = list.get(i);
+            if (!otherType.equals(t.type)) continue;
+            any = true;
+            RadioButton rb = new RadioButton(this);
+            rb.setId(View.generateViewId());
+            Timers.Timer partner = Timers.linked(prefs, list, t);
+            String taken = partner != null && partner.id != id ? "  (now linked with " + number(list, partner) + ")" : "";
+            rb.setText(number(list, t) + " · " + Timers.name(t.type) + taken);
+            rb.setTag(t.id);
+            choice.addView(rb);
+            if (current != null && current.id == t.id) checked = rb.getId();
+        }
+        if (!any) {
+            TextView missing = new TextView(this);
+            missing.setText("Add a " + Timers.name(otherType) + " on the settings page to link it with this one.");
+            missing.setPadding(0, 0, 0, dp(8));
+            col.addView(missing);
+            return;
+        }
+        choice.check(checked);
+        choice.setOnCheckedChangeListener((g, checkedId) -> {
+            View rb = g.findViewById(checkedId);
+            int other = rb != null && rb.getTag() instanceof Integer ? (Integer) rb.getTag() : -1;
+            if (heatsink) {
+                Timers.setLink(prefs, id, other);
+            } else {
+                Timers.Timer old = Timers.linked(prefs, Timers.load(prefs), self);
+                if (old != null) Timers.setLink(prefs, old.id, -1);
+                if (other >= 0) Timers.setLink(prefs, other, id);
+            }
+        });
+        col.addView(choice);
+    }
+
+    /** The timer's number in the settings list, starting at 1. */
+    private static int number(List<Timers.Timer> list, Timers.Timer t) {
+        return list.indexOf(t) + 1;
     }
 
     private int savedValue() {

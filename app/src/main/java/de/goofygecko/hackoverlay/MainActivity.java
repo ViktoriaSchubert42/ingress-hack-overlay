@@ -365,7 +365,9 @@ public class MainActivity extends Activity {
             row.addView(icon, new LinearLayout.LayoutParams(dp(36), dp(36)));
 
             TextView name = new TextView(this);
-            name.setText(Timers.name(t.type) + "\n" + summary(t));
+            Timers.Timer partner = Timers.linked(prefs, list, t);
+            name.setText(Timers.name(t.type) + "\n" + summary(t)
+                    + (partner != null ? "\nLinked with " + (list.indexOf(partner) + 1) : ""));
             name.setPadding(dp(12), 0, dp(8), 0);
             row.addView(name, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
@@ -453,9 +455,11 @@ public class MainActivity extends Activity {
             name.setPadding(dp(16), 0, 0, 0);
             row.addView(name);
             row.setOnClickListener(v -> {
-                Timers.add(prefs, type);
+                Timers.Timer added = Timers.add(prefs, type);
                 showTimers();
                 dialog.dismiss();
+                // A new timer with settings opens them straight away.
+                setUp(Timers.load(prefs), added);
             });
             options.addView(row);
         }

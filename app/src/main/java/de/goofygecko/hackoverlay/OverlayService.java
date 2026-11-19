@@ -188,7 +188,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
     @Override
     public void onSharedPreferenceChanged(SharedPreferences p, String key) {
         if (key == null || key.endsWith(ALERTED)) return;
-        if (Timers.LIST.equals(key) || Prefs.FACTION.equals(key)) buildBubbles();
+        if (Timers.LIST.equals(key) || Prefs.FACTION.equals(key) || Timers.isLinkKey(key)) buildBubbles();
         if (Timers.isEndKey(key)) scheduleAlarms();
         refresh();
     }
@@ -261,7 +261,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
         group.removeAllViews();
         long now = System.currentTimeMillis();
         SharedPreferences.Editor e = prefs.edit();
-        for (Timers.Timer t : list) {
+        for (Timers.Timer t : Timers.overlayOrder(prefs, list)) {
             Bubble b = null;
             for (Bubble o : old) {
                 if (o.timer.id == t.id) b = o;
@@ -279,6 +279,8 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
             b.label = Timers.label(list, t);
             // Kept buttons too: the symbol follows the faction.
             b.icon.setImageResource(Timers.icon(t.type, Prefs.faction(prefs)));
+            int pair = Timers.pairNumber(prefs, list, t);
+            b.pairMark.setText(pair > 0 ? String.valueOf(pair) : "");
             bubbles.add(b);
         }
         e.apply();
@@ -294,8 +296,13 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
         Bubble b = new Bubble(t);
         if (counter) {
             b.onTap = () -> {
-                int v = Timers.countdownValue(prefs, t.id);
-                if (v > 0) prefs.edit().putInt(Timers.countKey(t.id), v - 1).apply();
+                // A linked counter counts a hack only together with its timer.
+                Timers.Timer timer = Timers.linked(prefs, Timers.load(prefs), t);
+                if (timer != null) {
+                    hack(timer, t);
+                } else {
+                    countDown(t);
+                }
             };
             b.onLongPress = () ->
                     prefs.edit().putInt(Timers.countKey(t.id), Timers.countdownStart(prefs, t.id)).apply();
@@ -303,11 +310,36 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
             // Tapping a running timer does nothing. Long-press puts it back to its full time,
             // and the next tap starts it.
             b.onTap = () -> {
-                if (prefs.getLong(Timers.endKey(t.id), 0) <= System.currentTimeMillis()) startTimer(t);
+                Timers.Timer linkedCounter = Timers.HEATSINK.equals(t.type)
+                        ? Timers.linked(prefs, Timers.load(prefs), t) : null;
+                if (linkedCounter != null) {
+                    hack(t, linkedCounter);
+                } else if (!running(t)) {
+                    startTimer(t);
+                }
             };
             b.onLongPress = () -> prefs.edit().putLong(Timers.endKey(t.id), 0).apply();
         }
         return b;
+    }
+
+    /**
+     * A hack on a linked pair: starts the Hacking Speed Timer and counts one hack down. While the
+     * timer still runs, the portal can't be hacked yet, so another tap counts nothing.
+     */
+    private void hack(Timers.Timer timer, Timers.Timer counter) {
+        if (running(timer)) return;
+        startTimer(timer);
+        countDown(counter);
+    }
+
+    private void countDown(Timers.Timer counter) {
+        int v = Timers.countdownValue(prefs, counter.id);
+        if (v > 0) prefs.edit().putInt(Timers.countKey(counter.id), v - 1).apply();
+    }
+
+    private boolean running(Timers.Timer t) {
+        return prefs.getLong(Timers.endKey(t.id), 0) > System.currentTimeMillis();
     }
 
     /** Updates {@link #inIngress} from the system's app usage events. */
@@ -537,6 +569,11 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
         private static final float TEXT_H_DP = 32;
         private static final float TEXT_TOP_DP = 58;
         private static final float TEXT_MAX_SP = 30;  // shrinks to fit longer texts like "READY"
+        // Number of a linked pair, small in the bottom tip of the hexagon.
+        private static final float PAIR_W_DP = 24;
+        private static final float PAIR_H_DP = 13;
+        private static final float PAIR_TOP_DP = 88;
+        private static final float PAIR_SP = 10;
         private static final float BORDER_DP = 2;
         private static final float GAP_DP = 4;  // space between neighbouring buttons
 
@@ -548,6 +585,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
         final Timers.Timer timer;
         private final ImageView icon;
         private final TextView value;
+        final TextView pairMark;
         private final HexDrawable bg = new HexDrawable();
         final FrameLayout root;
         private float scale = -1;
@@ -579,6 +617,13 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
             value.setMaxLines(1);
             value.setGravity(Gravity.CENTER);
             root.addView(value);
+
+            pairMark = new TextView(OverlayService.this);
+            pairMark.setTypeface(Typeface.DEFAULT_BOLD);
+            pairMark.setIncludeFontPadding(false);
+            pairMark.setGravity(Gravity.CENTER);
+            pairMark.setTextColor(Color.WHITE);
+            root.addView(pairMark);
 
             int slop = ViewConfiguration.get(OverlayService.this).getScaledTouchSlop();
             root.setOnTouchListener((v, e) -> {
@@ -647,6 +692,12 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
                     TEXT_MAX_SP * s, getResources().getDisplayMetrics()));
             value.setAutoSizeTextTypeUniformWithConfiguration(
                     Math.min(4, maxPx), maxPx, 1, TypedValue.COMPLEX_UNIT_PX);
+
+            FrameLayout.LayoutParams pairLp = new FrameLayout.LayoutParams(
+                    dp(PAIR_W_DP * s), dp(PAIR_H_DP * s), Gravity.TOP | Gravity.CENTER_HORIZONTAL);
+            pairLp.topMargin = dp(PAIR_TOP_DP * s);
+            pairMark.setLayoutParams(pairLp);
+            pairMark.setTextSize(TypedValue.COMPLEX_UNIT_SP, PAIR_SP * s);
             applyBorder();
 
         }

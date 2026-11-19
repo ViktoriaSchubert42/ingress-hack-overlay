@@ -65,6 +65,16 @@ A new installation starts with one of each. Add or remove timers in the timer li
 - **Tap** counts one hack down.
 - **Long-press** resets it to the full number of hacks.
 
+### Linking a timer and a counter
+
+Usually a Hacking Speed Timer and a Remaining Hacks Countdown are about the same portal: every hack starts the cooldown and uses up one of the portal's hacks. You can link the two under **Linked with** on the setup page of either one.
+
+- **One tap = one hack:** tapping either linked button starts the timer and counts one hack down.
+- **No double counting:** while the timer is still running, the portal can't be hacked yet, so another tap does nothing.
+- **Long-press** still resets only the button you press.
+- In the overlay, linked buttons sit next to each other and show the same small pair number (1, 2, …) at the bottom.
+- Each timer and counter belongs to at most one pair. Unlinked ones work on their own as before.
+
 ## Portal mod calculations
 
 Tap **Setup** next to a Hacking Speed Timer or Remaining Hacks Countdown to open the mod page. It shows the portal's four mod slots in a 2×2 grid. Tap a slot to pick a mod, and the result updates as you go. You can also type a value by hand.
@@ -110,7 +120,7 @@ The settings page is the app's main screen. From top to bottom:
 
 1. **Faction:** Enlightened (green) or Resistance (blue), with the faction logo at the top.
 2. **Help text:** what each button does and what the colors mean.
-3. **Timer list:** numbered timers with their icons, a **Setup** button for each, ✕ to remove one, and **+ Add timer**.
+3. **Timer list:** numbered timers with their icons, a **Setup** button for each, ✕ to remove one, and **+ Add timer**. A newly added timer opens its setup straight away, and linked pairs show "Linked with" and the other one's number.
 4. **Look:** button size, horizontal or vertical arrangement, and button color (black by default).
 5. **Start overlay / Stop overlay.**
 6. **Exact alarms:** a shortcut to allow on-time alerts.

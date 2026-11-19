@@ -56,13 +56,16 @@ final class Timers {
         e.putString(LIST, sb.toString());
     }
 
-    static void add(SharedPreferences p, String type) {
+    /** Adds a timer at the end of the list and returns it. */
+    static Timer add(SharedPreferences p, String type) {
         List<Timer> list = load(p);
         int id = p.getInt(NEXT_ID, 1);
-        list.add(new Timer(type, id));
+        Timer timer = new Timer(type, id);
+        list.add(timer);
         SharedPreferences.Editor e = p.edit().putInt(NEXT_ID, id + 1);
         save(e, list);
         e.apply();
+        return timer;
     }
 
     static void remove(SharedPreferences p, int id) {
@@ -141,6 +144,11 @@ final class Timers {
     static String countKey(int id) { return "t" + id + "_count"; }
     static String modKey(int id, int slot) { return "t" + id + "_mod_" + slot; }
     static String friendlyKey(int id) { return "t" + id + "_friendly"; }  // heat sink: own faction's portal
+    static String linkKey(int id) { return "t" + id + "_link"; }  // heat sink: id of its linked counter
+
+    static boolean isLinkKey(String key) {
+        return key.startsWith("t") && key.endsWith("_link");
+    }
 
     static boolean isEndKey(String key) {
         return key.startsWith("t") && key.endsWith("_end");
@@ -164,6 +172,76 @@ final class Timers {
 
     static int countdownValue(SharedPreferences p, int id) {
         return p.getInt(countKey(id), countdownStart(p, id));
+    }
+
+    static Timer find(List<Timer> list, int id) {
+        for (Timer t : list) if (t.id == id) return t;
+        return null;
+    }
+
+    /**
+     * The other half of a linked pair, or null: a Hacking Speed Timer's Remaining Hacks Countdown,
+     * or the other way round. A pair stands for hacks on the same portal.
+     */
+    static Timer linked(SharedPreferences p, List<Timer> list, Timer t) {
+        if (HEATSINK.equals(t.type)) {
+            Timer counter = find(list, p.getInt(linkKey(t.id), -1));
+            return counter != null && MULTIHACK.equals(counter.type) ? counter : null;
+        }
+        if (MULTIHACK.equals(t.type)) {
+            for (Timer other : list) {
+                if (HEATSINK.equals(other.type) && p.getInt(linkKey(other.id), -1) == t.id) return other;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Links a Hacking Speed Timer with a Remaining Hacks Countdown, or unlinks it (counterId -1).
+     * Each one belongs to at most one pair, so earlier links of either are dropped.
+     */
+    static void setLink(SharedPreferences p, int heatsinkId, int counterId) {
+        SharedPreferences.Editor e = p.edit();
+        if (counterId >= 0) {
+            for (Timer other : load(p)) {
+                if (other.id != heatsinkId && p.getInt(linkKey(other.id), -1) == counterId) e.remove(linkKey(other.id));
+            }
+            e.putInt(linkKey(heatsinkId), counterId);
+        } else {
+            e.remove(linkKey(heatsinkId));
+        }
+        e.apply();
+    }
+
+    /**
+     * Button order in the overlay: the list order, except that a linked counter follows right
+     * after its timer.
+     */
+    static List<Timer> overlayOrder(SharedPreferences p, List<Timer> list) {
+        List<Timer> order = new ArrayList<>();
+        for (Timer t : list) {
+            if (order.contains(t)) continue;
+            Timer partner = linked(p, list, t);
+            if (partner != null && MULTIHACK.equals(t.type)) {
+                order.add(partner);  // the timer goes first
+                order.add(t);
+            } else {
+                order.add(t);
+                if (partner != null) order.add(partner);
+            }
+        }
+        return order;
+    }
+
+    /** 1 for the first linked pair in the list, 2 for the next, …; 0 if not linked. */
+    static int pairNumber(SharedPreferences p, List<Timer> list, Timer t) {
+        int n = 0;
+        for (Timer other : list) {
+            if (!HEATSINK.equals(other.type) || linked(p, list, other) == null) continue;
+            n++;
+            if (other == t || linked(p, list, other) == t) return n;
+        }
+        return 0;
     }
 
     static int[] mods(SharedPreferences p, int id) {
