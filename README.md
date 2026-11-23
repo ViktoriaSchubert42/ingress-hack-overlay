@@ -43,10 +43,10 @@ Hack Timer Overlay for Ingress is a small Android app that draws hexagonal butto
 
 | | Timer / counter | What it tracks | Default |
 |---|---|---|---|
-| <img src="symbols/burnout.png" width="40"> | **Portal Burnout Refresh** | A portal burns out after too many hacks and has to rest for 4 hours. | 4:00 h |
-| <img src="symbols/heatsink.png" width="40"> | **Hacking Speed Timer** | The wait before you can hack the same portal again. Heat sinks make it shorter. | 5:00 min |
-| <img src="symbols/multihack.png" width="40"> | **Remaining Hacks Countdown** | How many hacks a portal has left before it burns out. Multi-hacks raise the number. | 4 hacks |
-| <img src="symbols/drone.png" width="40"> | **Drone Timer Cooldown** | The wait before your drone can make a long jump again. | 60 min |
+| <img src="symbols/fire_green2.png" width="40"> | **Portal Burnout Refresh** | A portal burns out after too many hacks and has to rest for 4 hours. | 4:00 h |
+| <img src="symbols/shiny_hs_green.png" width="40"> | **Hacking Speed Timer** | The wait before you can hack the same portal again. Heat sinks make it shorter. | 5:00 min |
+| <img src="symbols/simple_mh_green.png" width="40"> | **Remaining Hacks Countdown** | How many hacks a portal has left before it burns out. Multi-hacks raise the number. | 4 hacks |
+| <img src="symbols/drone_green_final2.png" width="40"> | **Drone Timer Cooldown** | The wait before your drone can make a long jump again. | 60 min |
 
 A new installation starts with one of each. Add or remove timers in the timer list on the settings page. Timers are numbered from 1, and when you have more than one of the same kind, the button label includes its number.
 

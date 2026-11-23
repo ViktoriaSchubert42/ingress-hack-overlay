@@ -529,7 +529,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
             counts.append(counts.length() > 0 ? " · " : "").append(Timers.countdownValue(prefs, bubble.timer.id));
         }
         if (counts.length() > 0) {
-            b.setLargeIcon(Icon.createWithResource(this, R.drawable.sym_multihack))
+            b.setLargeIcon(Icon.createWithResource(this, Timers.icon(Timers.MULTIHACK, Prefs.faction(prefs))))
                     .setContentTitle("Remaining Hacks: " + counts);
         } else {
             b.setLargeIcon(Icon.createWithResource(this, R.drawable.app_icon))

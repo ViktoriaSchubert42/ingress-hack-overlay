@@ -36,6 +36,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Settings screen: configure the timers and start/stop the overlay. */
@@ -48,6 +49,8 @@ public class MainActivity extends Activity {
     private Button exactAlarms;
     private Button notifications;
     private ImageView logo;
+    // The button guide's symbols, which change with the faction like the overlay buttons.
+    private final List<ImageView> guideIcons = new ArrayList<>();
     private RadioGroup colors;
 
     @Override
@@ -105,6 +108,8 @@ public class MainActivity extends Activity {
             int faction = id - 1;
             prefs.edit().putInt(Prefs.FACTION, faction).apply();
             showFaction(faction);
+            for (ImageView icon : guideIcons) icon.setImageResource(Timers.icon((String) icon.getTag(), faction));
+            showTimers();
         });
         col.addView(factions);
 
@@ -381,7 +386,7 @@ public class MainActivity extends Activity {
             row.addView(number, new LinearLayout.LayoutParams(dp(32), ViewGroup.LayoutParams.WRAP_CONTENT));
 
             ImageView icon = new ImageView(this);
-            icon.setImageResource(Timers.icon(t.type));
+            icon.setImageResource(Timers.icon(t.type, Prefs.faction(prefs)));
             icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
             row.addView(icon, new LinearLayout.LayoutParams(dp(36), dp(36)));
 
@@ -420,7 +425,9 @@ public class MainActivity extends Activity {
         LinearLayout row = new LinearLayout(this);
         row.setPadding(0, dp(6), 0, dp(6));
         ImageView icon = new ImageView(this);
-        icon.setImageResource(Timers.icon(type));
+        icon.setImageResource(Timers.icon(type, Prefs.faction(prefs)));
+        icon.setTag(type);
+        guideIcons.add(icon);
         icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         LinearLayout.LayoutParams iconLp = new LinearLayout.LayoutParams(dp(36), dp(36));
         iconLp.rightMargin = dp(12);
@@ -467,7 +474,7 @@ public class MainActivity extends Activity {
             row.setGravity(Gravity.CENTER_VERTICAL);
             row.setPadding(0, dp(8), 0, dp(8));
             ImageView icon = new ImageView(this);
-            icon.setImageResource(Timers.icon(type));
+            icon.setImageResource(Timers.icon(type, Prefs.faction(prefs)));
             icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
             row.addView(icon, new LinearLayout.LayoutParams(dp(40), dp(40)));
             TextView name = new TextView(this);

@@ -99,18 +99,9 @@ final class Timers {
         }
     }
 
-    static int icon(String type) {
-        switch (type) {
-            case BURNOUT: return R.drawable.sym_burnout;
-            case HEATSINK: return R.drawable.sym_heatsink;
-            case MULTIHACK: return R.drawable.sym_multihack;
-            default: return R.drawable.sym_drone;
-        }
-    }
-
     /**
-     * Symbol for an overlay button: a blue version for the Resistance and a green one otherwise
-     * (Enlightened or no faction picked yet).
+     * Symbol of a timer kind, in the overlay and on the settings page: a blue version for the
+     * Resistance and a green one otherwise (Enlightened or no faction picked yet).
      */
     static int icon(String type, int faction) {
         boolean res = faction == 1;
