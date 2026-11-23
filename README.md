@@ -119,12 +119,12 @@ cooldown = base × (1 − h) × (1 − a/2) × (1 − b/2) × (1 − c/2)
 
 The settings page is the app's main screen. From top to bottom:
 
-1. **Faction:** Enlightened (green) or Resistance (blue), with the faction logo at the top.
-2. **Help text:** what each button does and what the colors mean.
-3. **Timer list:** numbered timers with their icons, a **Setup** button for each, ✕ to remove one, and **+ Add timer**. A newly added timer opens its setup straight away, and linked pairs show "Linked with" and the other one's number.
-4. **Look:** button size, horizontal or vertical arrangement, and button color (black by default).
-5. **Start overlay / Stop overlay.**
-6. **Exact alarms:** a shortcut to allow on-time alerts.
+1. **Start overlay / Stop overlay**, side by side below the faction logo and app name.
+2. **Faction:** Enlightened (green) or Resistance (blue); the chosen faction's logo shows at the top.
+3. **Help text:** what each button does and what the colors mean.
+4. **Timer list:** numbered timers with their icons, a **Setup** button for each, ✕ to remove one, and **+ Add timer**. A newly added timer opens its setup straight away, and linked pairs show "Linked with" and the other one's number.
+5. **Look:** button size, horizontal or vertical arrangement, and button color (black by default).
+6. **Permission status:** which permissions are allowed, with shortcuts for notifications and on-time alerts when they are missing.
 7. **About the app:** version, author and legal notice.
 
 ## Permissions

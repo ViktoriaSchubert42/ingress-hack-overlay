@@ -74,6 +74,22 @@ public class MainActivity extends Activity {
         title.setGravity(Gravity.CENTER_HORIZONTAL);
         col.addView(title);
 
+        // Start and Stop side by side at the top, the buttons used most.
+        LinearLayout startStop = new LinearLayout(this);
+        startStop.setPadding(0, dp(12), 0, dp(4));
+        Button start = new Button(this);
+        start.setText("Start overlay");
+        start.setOnClickListener(v -> startOverlay());
+        startStop.addView(start, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        Button stop = new Button(this);
+        stop.setText("Stop overlay");
+        stop.setOnClickListener(v -> {
+            prefs.edit().putBoolean(Prefs.SERVICE_ON, false).apply();
+            stopService(new Intent(this, OverlayService.class));
+        });
+        startStop.addView(stop, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        col.addView(startStop);
+
         col.addView(label("Faction"));
         RadioGroup factions = new RadioGroup(this);
         for (int i = 0; i < Prefs.FACTION_NAMES.length; i++) {
@@ -185,19 +201,6 @@ public class MainActivity extends Activity {
         status = new TextView(this);
         status.setPadding(0, dp(20), 0, dp(8));
         col.addView(status);
-
-        Button start = new Button(this);
-        start.setText("Start overlay");
-        start.setOnClickListener(v -> startOverlay());
-        col.addView(start);
-
-        Button stop = new Button(this);
-        stop.setText("Stop overlay");
-        stop.setOnClickListener(v -> {
-            prefs.edit().putBoolean(Prefs.SERVICE_ON, false).apply();
-            stopService(new Intent(this, OverlayService.class));
-        });
-        col.addView(stop);
 
         // Without this, timers that end while the phone sleeps may alert a few minutes late.
         exactAlarms = new Button(this);
