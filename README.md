@@ -33,6 +33,7 @@ Hack Timer Overlay for Ingress is a small Android app that draws hexagonal butto
 - **Overlay only while you play:** the buttons appear when Ingress is in front and hide everywhere else.
 - **Alerts when a timer ends:** vibration and a notification, even if the phone is asleep (uses exact alarms).
 - **Notifications that count down:** a running timer shows a live countdown in the notification shade. Tapping it opens Ingress.
+- **Overlay notification:** while the overlay runs, a permanent notification has **Hide buttons / Show buttons** and **Stop**. If you swipe it away (possible since Android 14), it comes right back.
 - **Quick Settings tile:** "Hack buttons" hides or shows the overlay without opening the app.
 - **Faction:** pick Enlightened or Resistance. The faction logo shows on the settings page, and the button symbols turn green or blue to match.
 - **Customizable look:** button size, horizontal or vertical row, and button color (Black, Green, Red, Blue).

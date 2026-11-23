@@ -48,6 +48,8 @@ import java.util.Locale;
 public class OverlayService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener {
     static final String ACTION_STOP = "de.goofygecko.hackoverlay.STOP";
     static final String ACTION_TOGGLE_HIDDEN = "de.goofygecko.hackoverlay.TOGGLE_HIDDEN";
+    // Sent when the user swipes the overlay notification away (possible since Android 14).
+    private static final String ACTION_REPOST = "de.goofygecko.hackoverlay.REPOST";
     static final String INGRESS_PACKAGE = "com.nianticproject.ingress";
 
     private static final String CHANNEL_SERVICE = "overlay";
@@ -514,6 +516,9 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
                 new Intent(this, OverlayService.class).setAction(ACTION_STOP), PendingIntent.FLAG_IMMUTABLE);
         PendingIntent toggle = PendingIntent.getService(this, 3,
                 new Intent(this, OverlayService.class).setAction(ACTION_TOGGLE_HIDDEN), PendingIntent.FLAG_IMMUTABLE);
+        // Swiped away while the overlay runs: post it again, so Hide/Show stays at hand.
+        PendingIntent repost = PendingIntent.getService(this, 4,
+                new Intent(this, OverlayService.class).setAction(ACTION_REPOST), PendingIntent.FLAG_IMMUTABLE);
         boolean hidden = Prefs.hidden(prefs);
 
         Notification.Builder b = new Notification.Builder(this, CHANNEL_SERVICE)
@@ -532,6 +537,7 @@ public class OverlayService extends Service implements SharedPreferences.OnShare
         }
         return b.setContentText(hidden ? "Buttons hidden – tap \"Show buttons\" to bring them back" : "Tap for settings")
                 .setContentIntent(open)
+                .setDeleteIntent(repost)
                 .addAction(new Notification.Action.Builder(null, hidden ? "Show buttons" : "Hide buttons", toggle).build())
                 .addAction(new Notification.Action.Builder(null, "Stop", stop).build())
                 .setOngoing(true)

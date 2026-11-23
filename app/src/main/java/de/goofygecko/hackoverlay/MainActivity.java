@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
     private TextView sizeLabel;
     private Button battery;
     private Button exactAlarms;
+    private Button notifications;
     private ImageView logo;
     private RadioGroup colors;
 
@@ -208,6 +210,13 @@ public class MainActivity extends Activity {
         });
         col.addView(exactAlarms);
 
+        // The overlay's notification has the Hide/Show buttons, so it matters if notifications are off.
+        notifications = new Button(this);
+        notifications.setText("Allow notifications");
+        notifications.setOnClickListener(v -> startActivity(new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                .putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName())));
+        col.addView(notifications);
+
         // Some phones stop background apps to save battery, which would stop the timer alerts.
         // The user switches this off in the phone's list of battery-optimized apps.
         battery = new Button(this);
@@ -266,6 +275,10 @@ public class MainActivity extends Activity {
                 ? "Usage access: allowed"
                 : "Usage access: missing – needed to show the buttons only in Ingress.")
                 + "\n"
+                + (notificationsAllowed()
+                ? "Notifications: allowed"
+                : "Notifications: off – no timer alerts, and no notification to hide or show the buttons.")
+                + "\n"
                 + (exactAlarmsAllowed()
                 ? "Alarms on time: allowed"
                 : "Alarms on time: not allowed – timers ending while the phone sleeps may alert late.")
@@ -275,6 +288,11 @@ public class MainActivity extends Activity {
                 : "Battery optimization: on – the phone may stop the timers in the background."));
         battery.setVisibility(ignoresBatteryLimits() ? View.GONE : View.VISIBLE);
         exactAlarms.setVisibility(exactAlarmsAllowed() ? View.GONE : View.VISIBLE);
+        notifications.setVisibility(notificationsAllowed() ? View.GONE : View.VISIBLE);
+    }
+
+    private boolean notificationsAllowed() {
+        return getSystemService(NotificationManager.class).areNotificationsEnabled();
     }
 
     private boolean exactAlarmsAllowed() {
