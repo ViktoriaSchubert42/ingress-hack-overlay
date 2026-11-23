@@ -378,13 +378,13 @@ public class ModsActivity extends Activity {
             row.setPadding(0, dp(6), 0, dp(6));
             ImageView icon = new ImageView(this);
             icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            if (m > 0) icon.setImageDrawable(modIcon(m));
+            icon.setImageDrawable(modIcon(m));
             row.addView(icon, new LinearLayout.LayoutParams(dp(50), dp(56)));
             TextView text = new TextView(this);
             text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
             text.setPadding(dp(16), 0, 0, 0);
             String effect = heatsink ? "−" + Prefs.HS_PERCENT[m] + " %" : "+" + Prefs.MH_HACK_BONUS[m];
-            text.setText(m == 0 ? "Empty slot" : modNames[m] + "  (" + effect + ")");
+            text.setText(m == 0 ? "Empty slot (clear slot)" : modNames[m] + "  (" + effect + ")");
             row.addView(text);
             row.setOnClickListener(v -> {
                 prefs.edit().putInt(Timers.modKey(id, slot), mod).apply();
@@ -398,7 +398,7 @@ public class ModsActivity extends Activity {
 
     /** The small pixel-art mod pictures, scaled up without blurring. */
     private Drawable modIcon(int mod) {
-        Drawable d = getDrawable(modIcons[mod]);
+        Drawable d = getDrawable(mod == 0 ? R.drawable.mod_empty : modIcons[mod]);
         if (d instanceof BitmapDrawable) ((BitmapDrawable) d).setFilterBitmap(false);
         return d;
     }
